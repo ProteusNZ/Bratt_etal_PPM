@@ -4,14 +4,6 @@
 # Year: 2024
 #--------------------------------------------------------------------------- ---
 
-## SET WORKING DIRECTORIES ----
-
-# Point to code repository
-repo_dir <- getwd()
-
-# Point to data repository
-SP_dir <- ProteusFunctions::find_OD_dir("PPM")
-
 ## LOAD LIBRARIES ----
 library(tidyverse)
 library(lubridate)
@@ -23,6 +15,14 @@ library(beepr)
 library(postpack)
 library(pbapply)
 library(strex)
+
+## SET WORKING DIRECTORIES ----
+
+# Point to code repository
+repo_dir <- here()
+
+# Point to data repository
+SP_dir <- here()
 
 ## LOAD DATA SETS ----
 
@@ -209,7 +209,7 @@ mcmc.pars <- c(
   "N"
 )
 
-jags.mod <- jags.model(here("Code", "Reanalysis", "reanalysis_long_jags_sqrt.R"), mcmc.data, n.chains = 3)
+jags.mod <- jags.model(here("scripts", "01_reanalysis_long_jags_sqrt.R"), mcmc.data, n.chains = 3)
 
 ## RUN MODEL ----
 
@@ -226,7 +226,7 @@ beep(sound = 8)
 
 ## PROCESS AND SAVE RESULTS ----
 
-save(jagsfit, file = here("Results", "sqrt", "reanalysis_long_samples_sqrt.Rdata"))
+# save(jagsfit, file = here("results", "reanalysis_long_samples_sqrt.Rdata"))
 
 # get summary stats ####
 summ <- t(post_summ(jagsfit, get_params(jagsfit, type = "base_index"),
@@ -235,7 +235,7 @@ summ <- t(post_summ(jagsfit, get_params(jagsfit, type = "base_index"),
   as.data.frame()
 summ <- summ %>%
   rownames_to_column(var = "name")
-save(summ, file = here("Results", "sqrt", "reanalysis_long_summary_sqrt.Rdata"))
+# save(summ, file = here("results", "reanalysis_long_summary_sqrt.Rdata"))
 
 model.pars <- post_subset(jagsfit, c("beta\\[", "sd_eps"))
 hug_p.pars <- post_subset(jagsfit, c(
@@ -258,11 +258,11 @@ psi.pars <- post_subset(jagsfit, c(
 ))
 cov.pars <- post_subset(jagsfit, c("beta_"))
 
-save(model.pars, file = file.path(SP_dir, "Results", "sqrt", "reanalysis_long_model_pars_sqrt.RData"))
-save(hug_p.pars, file = file.path(SP_dir, "Results", "sqrt", "reanalysis_long_hug_p_pars_sqrt.RData"))
-save(occ_p.pars, file = file.path(SP_dir, "Results", "sqrt", "reanalysis_long_occ_p_pars_sqrt.RData"))
-save(psi.pars, file = file.path(SP_dir, "Results", "sqrt", "reanalysis_long_psi_pars_sqrt.RData"))
-save(cov.pars, file = file.path(SP_dir, "Results", "sqrt", "reanalysis_long_cov_pars_sqrt.RData"))
+save(model.pars, file = file.path(SP_dir, "results", "reanalysis_long_model_pars_sqrt.RData"))
+save(hug_p.pars, file = file.path(SP_dir, "results", "reanalysis_long_hug_p_pars_sqrt.RData"))
+save(occ_p.pars, file = file.path(SP_dir, "results", "reanalysis_long_occ_p_pars_sqrt.RData"))
+save(psi.pars, file = file.path(SP_dir, "results", "reanalysis_long_psi_pars_sqrt.RData"))
+save(cov.pars, file = file.path(SP_dir, "results", "reanalysis_long_cov_pars_sqrt.RData"))
 
 # the 501 combos are SiYr_all[sel, ]
 # the 70 we care about right now are YSP2
@@ -306,4 +306,4 @@ est <- est %>%
     t_total = t2[matches$index]
   )
 
-write.csv(est, here("Results", "sqrt", "long time density and occupancy estimates_reanalysis_sqrt.csv"))
+# write.csv(est, here("results", "long time density and occupancy estimates_reanalysis_sqrt.csv"))

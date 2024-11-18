@@ -4,14 +4,6 @@
 # Year: 2024
 #--------------------------------------------------------------------------- ---
 
-## SET WORKING DIRECTORIES ----
-
-# Point to code repository
-repo_dir <- getwd()
-
-# Point to data repository
-SP_dir <- ProteusFunctions::find_OD_dir("PPM")
-
 ## LOAD LIBRARIES ----
 library(tidyverse)
 library(lubridate)
@@ -23,6 +15,14 @@ library(beepr)
 library(postpack)
 library(pbapply)
 library(strex)
+
+## SET WORKING DIRECTORIES ----
+
+# Point to code repository
+repo_dir <- here()
+
+# Point to data repository
+SP_dir <- here()
 
 ## LOAD DATA SETS ----
 
@@ -179,12 +179,12 @@ library(strex)
 #
 # t_max <- 6
 #
-# save.image(here("Data","short_pre_jags_image.RData"))
+# save.image(here("data","short_pre_jags_image.RData"))
 
 ## LOAD PREPROCESSED DATA ----
 
-load(here("Data", "short_pre_jags_image.RData"))
-load(here("Data", "corrected_X.rda"))
+load(here("data", "short_pre_jags_image.RData"))
+load(here("data", "corrected_X.rda"))
 
 ## SET UP MODEL ----
 
@@ -237,7 +237,7 @@ mcmc.pars <- c(
   "N"
 )
 
-jags.mod <- jags.model(file.path(repo_dir, "Code", "Reanalysis", "reanalysis_short_jags_sqrt.R"), mcmc.data, n.chains = 3)
+jags.mod <- jags.model(file.path(repo_dir, "scripts", "01_reanalysis_short_jags_sqrt.R"), mcmc.data, n.chains = 3)
 
 ## RUN MODEL ----
 
@@ -254,7 +254,7 @@ beep(sound = 8)
 
 ## PROCESS AND SAVE RESULTS ----
 
-save(jagsfit, file = file.path(SP_dir, "Results", "short", "reanalysis_short_samples_sqrt.Rdata"))
+# save(jagsfit, file = file.path(SP_dir, "results", "reanalysis_short_samples_sqrt.Rdata"))
 
 # get summary stats
 summ <- t(post_summ(jagsfit, get_params(jagsfit, type = "base_index"),
@@ -263,7 +263,7 @@ summ <- t(post_summ(jagsfit, get_params(jagsfit, type = "base_index"),
   as.data.frame()
 summ <- summ %>%
   rownames_to_column(var = "name")
-save(summ, file = file.path(SP_dir, "Results", "short", "reanalysis_short_summary_sqrt.Rdata"))
+# save(summ, file = file.path(SP_dir, "results", "reanalysis_short_summary_sqrt.Rdata"))
 
 model.pars <- post_subset(jagsfit, c("beta\\[", "sd_eps"))
 hug_p.pars <- post_subset(jagsfit, c(
@@ -288,11 +288,11 @@ psi.pars <- post_subset(jagsfit, c(
 ))
 cov.pars <- post_subset(jagsfit, c("beta_"))
 
-save(model.pars, file = file.path(SP_dir, "Results", "short", "reanalysis_short_model_pars_sqrt.RData"))
-save(hug_p.pars, file = file.path(SP_dir, "Results", "short", "reanalysis_short_hug_p_pars_sqrt.RData"))
-save(occ_p.pars, file = file.path(SP_dir, "Results", "short", "reanalysis_short_occ_p_pars_sqrt.RData"))
-save(psi.pars, file = file.path(SP_dir, "Results", "short", "reanalysis_short_psi_pars_sqrt.RData"))
-save(cov.pars, file = file.path(SP_dir, "Results", "short", "reanalysis_short_cov_pars_sqrt.RData"))
+save(model.pars, file = file.path(SP_dir, "results", "reanalysis_short_model_pars_sqrt.RData"))
+save(hug_p.pars, file = file.path(SP_dir, "results", "reanalysis_short_hug_p_pars_sqrt.RData"))
+save(occ_p.pars, file = file.path(SP_dir, "results", "reanalysis_short_occ_p_pars_sqrt.RData"))
+save(psi.pars, file = file.path(SP_dir, "results", "reanalysis_short_psi_pars_sqrt.RData"))
+save(cov.pars, file = file.path(SP_dir, "results", "reanalysis_short_cov_pars_sqrt.RData"))
 
 # the 501 combos are SiYr_all[sel, ]
 # the 70 we care about right now are YSP2
@@ -337,4 +337,4 @@ est <- est %>%
     t_total = t2[matches$index]
   )
 
-write.csv(est, file.path(SP_dir, "Results", "short", "short time density and occupancy estimates_reanalysis_sqrt.csv"))
+# write.csv(est, file.path(SP_dir, "results", "short time density and occupancy estimates_reanalysis_sqrt.csv"))

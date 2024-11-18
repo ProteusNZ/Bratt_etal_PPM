@@ -9,14 +9,6 @@
 #   Abby Bratt (18/11/24)
 #--------------------------------------------------------------------------- ---
 
-## SET WORKING DIRECTORIES ----
-
-# Point to code repository
-repo_dir <- getwd()
-
-# Point to data repository
-SP_dir <- ProteusFunctions::find_OD_dir("USGS")
-
 ## LOAD LIBRARIES ----
 
 library(tidyverse)
@@ -30,11 +22,20 @@ library(postpack)
 library(pbapply)
 library(strex)
 
+## SET WORKING DIRECTORIES ----
+
+# Point to code repository
+repo_dir <- here()
+
+# Point to data repository
+SP_dir <- here()
+
 ## LOAD DATA SETS ----
 
 ### Preprocessed data ----
 
-load(file.path(repo_dir, "Data", "DH_data_all_4.rda"))
+load(file.path(repo_dir, "data", "DH_data_all_4.rda"))
+load(here("Data", "corrected_X.rda"))
 
 SiYr_all <- dh_dat_all_PPM_4 %>%
   select(Site, Year, `100mPlot`) %>%
@@ -89,7 +90,7 @@ SiYr_wData <- SiYr_wData %>% left_join(X %>% select(Year, Site, `100mPlot`, Site
 
 ### Model results ----
 
-load(here("reanalysis_long_samples_sqrt.Rdata"))
+load(here("results", "reanalysis_long_samples_sqrt.Rdata"))
 
 A.estimates <- do.call(rbind, post_subset(jagsfit, "A")) %>%
   as.data.frame() %>%
@@ -154,14 +155,4 @@ AbundanceEstimates_3 <- N.estimates2 %>%
   )
 AbundanceEstimates_3 %>% data.frame()
 
-ggplot(AbundanceEstimates_3, aes(x = Year, y = mean_N, colour = Site)) +
-  geom_pointrange(aes(ymin = l_90_N, ymax = u_90_N)) +
-  theme_bw() +
-  ylab("Abundance estimate") +
-  scale_color_discrete(name = "Population") +
-  scale_x_continuous(breaks = seq(2012, 2022, 2))
-ggsave(here("Results", "sqrt", "Scaled abundance estimates.jpg"),
-  width = 1200, height = 900, units = "px", dpi = 144
-)
-
-write.csv(AbundanceEstimates_3, here("Results", "sqrt", "reanalysis_predictions_sqrt_upscaled.csv"))
+write.csv(AbundanceEstimates_3, here("results", "reanalysis_predictions_sqrt_upscaled.csv"))
