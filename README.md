@@ -18,13 +18,13 @@ Predicting population abundance whilst accounting for uncertainty is an essentia
 
 Contains scripts to run all analyses. 
  
-### [Data](./data) 
+### Data
 
 Data available upon request. 
 
-### [Results](./results)
+### Results
 
-Contains raw and processed results.  
+Raw and processed results available upon request.
 
 ### [Figures](./figures)
 
@@ -32,7 +32,22 @@ Contains all figures in manuscript.
 
 ### Required Packages and Versions Used 
 
-TBD
+- dplyr
+- lubridate
+- bayesplot
+- nimble
+- here
+- ggplot2
+- postpack
+- pbapply
+- strex
+- RColorBrewer
+- nimble
+- bayesplot
+- rjags
+- openxlsx
+- readxl
+- xtable
 
 ### Details of Article 
 
