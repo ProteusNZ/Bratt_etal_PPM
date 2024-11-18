@@ -12,9 +12,10 @@
 ## SET WORKING DIRECTORIES ----
 
 # Point to code repository
-#repo_dir <- getwd() 
-# Point to data repository
-#SP_dir <- ProteusFunctions::find_OD_dir("USGS") 
+repo_dir <- getwd()
+
+#Point to data repository
+SP_dir <- ProteusFunctions::find_OD_dir("PPM")
 
 ## LOAD LIBRARIES ----
 
@@ -29,30 +30,30 @@ library(pbapply)
 library(strex)
 library(RColorBrewer)
 library(cowplot)
-# library(ProteusFunctions) # company functions
-# library(ProteusTheme) # company ggplot theme
+library(ProteusFunctions) # company functions
+library(ProteusTheme) # company ggplot theme
 
 # SHORT TIMESCALE ----
 
 ## Load data ----
 
 # Load processed density and occupancy data
-# load(here("Data", "short_pre_jags_image.RData"))
+load(here("Data", "short_pre_jags_image.RData"))
 
 # Load MCMC results
-# load(here("Results", "sqrt", "reanalysis_short_samples_sqrt.Rdata"))
-# load(here("Results", "sqrt", "reanalysis_short_summary_sqrt.Rdata"))
-# est <- read_csv(here("Results", "sqrt", "short time density and occupancy estimates_reanalysis_sqrt.csv")) %>% 
-#   mutate(`100mPlot` = as_factor(`100mPlot`))
+load(here("Results", "sqrt", "reanalysis_short_samples_sqrt.Rdata"))
+load(here("Results", "sqrt", "reanalysis_short_summary_sqrt.Rdata"))
+est <- read_csv(here("Results", "sqrt", "short time density and occupancy estimates_reanalysis_sqrt.csv")) %>%
+  mutate(`100mPlot` = as_factor(`100mPlot`))
 
 # Load predictions
-# AbundanceEstimates_3 <- read_csv(here("Results", "sqrt", "reanalysis_predictions_short_sqrt_upscaled.csv")) %>%
-#   mutate(my = as.Date(paste(Year, as.numeric(Month_fct) + 3, "01", sep = "-"))) %>%
-#   filter(Year < 2022) %>%
-#   mutate(
-#     Site = str_to_sentence(Site),
-#     Site = if_else(Site == "Ssm", "SSM", Site)
-#   )
+AbundanceEstimates_3 <- read_csv(here("Results", "sqrt", "reanalysis_predictions_short_sqrt_upscaled.csv")) %>%
+  mutate(my = as.Date(paste(Year, as.numeric(Month_fct) + 3, "01", sep = "-"))) %>%
+  filter(Year < 2022) %>%
+  mutate(
+    Site = str_to_sentence(Site),
+    Site = if_else(Site == "Ssm", "SSM", Site)
+  )
 
 ## Density vs occupancy ----
 
@@ -146,21 +147,21 @@ ggsave(here("Results", "ms", "MS Scaled abundance estimates SHORT.png"),
 ## Load data ----
 
 # Load processed density and occupancy data
-# load(here("Data", "long_prejags_image.RData"))
+load(here("Data", "long_prejags_image.RData"))
 
 # Load MCMC results
-# load(here("Results", "sqrt", "reanalysis_long_samples_sqrt.Rdata"))
-# load(here("Results", "sqrt", "reanalysis_long_summary_sqrt.Rdata"))
-# est <- read_csv(here("Results", "sqrt", "long time density and occupancy estimates_reanalysis_sqrt.csv")) %>%
-#   mutate(`100mPlot` = as_factor(`100mPlot`))
+load(here("Results", "sqrt", "reanalysis_long_samples_sqrt.Rdata"))
+load(here("Results", "sqrt", "reanalysis_long_summary_sqrt.Rdata"))
+est <- read_csv(here("Results", "sqrt", "long time density and occupancy estimates_reanalysis_sqrt.csv")) %>%
+  mutate(`100mPlot` = as_factor(`100mPlot`))
 
 # Load predictions
-# AbundanceEstimates_3 <- read_csv(here("Results", "sqrt", "reanalysis_predictions_sqrt_upscaled.csv")) %>%
-#   filter(Year < 2022) %>%
-#   mutate(
-#     Site = str_to_sentence(Site),
-#     Site = if_else(Site == "Ssm", "SSM", Site)
-#   )
+AbundanceEstimates_3 <- read_csv(here("Results", "sqrt", "reanalysis_predictions_sqrt_upscaled.csv")) %>%
+  filter(Year < 2022) %>%
+  mutate(
+    Site = str_to_sentence(Site),
+    Site = if_else(Site == "Ssm", "SSM", Site)
+  )
 
 ## Density vs occupancy ----
 
@@ -269,17 +270,17 @@ ggsave(here("Results", "ms", "MS_reanalysis_both_den_year_sqrt.png"),
 foo <- plot_grid(sp4, lp4, labels = c("A", "B"), nrow = 2, ncol = 1)
 
 ggdraw() +
-  draw_plot(foo) #+ # Overlay PPM artwork onto plot
-  # draw_image(
-  #   image = here("Data", "20220328_ppm_color_transparent.png"),
-  #   x = 0.925, y = 0.85, hjust = 0.5, vjust = 0.5,
-  #   halign = 0.5, valign = 0.5, scale = 0.125
-  # ) +
-  # draw_image(
-  #   image = here("Data", "20220328_ppm_color_transparent.png"),
-  #   x = 0.925, y = 0.35, hjust = 0.5, vjust = 0.5,
-  #   halign = 0.5, valign = 0.5, scale = 0.125
-  # )
+  draw_plot(foo) + # Overlay PPM artwork onto plot
+  draw_image(
+    image = here("Data", "20220328_ppm_color_transparent.png"),
+    x = 0.925, y = 0.85, hjust = 0.5, vjust = 0.5,
+    halign = 0.5, valign = 0.5, scale = 0.125
+  ) +
+  draw_image(
+    image = here("Data", "20220328_ppm_color_transparent.png"),
+    x = 0.925, y = 0.35, hjust = 0.5, vjust = 0.5,
+    halign = 0.5, valign = 0.5, scale = 0.125
+  )
 
 ggsave(here("Results", "ms", "MS Scaled abundance estimates BOTH.png"),
   width = 20, height = 20, units = "cm", dpi = 320
