@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 ## *Unraveling abundance from occurrence: Modeling an endangered rodent population with low capture probability*
 
 #### Bratt. A.E., Brehme, C.S., Fisher, R.N., Bertoia, A.J., MacKenzie, D.I.
