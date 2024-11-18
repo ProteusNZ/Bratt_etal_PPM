@@ -7,4 +7,6 @@
 00_*
 data/
 
-# 
+# raw and processed results available upon request
+04_*
+results/
