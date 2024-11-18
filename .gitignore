@@ -2,3 +2,9 @@
 .Rhistory
 .RData
 .Ruserdata
+
+# data processing and data available upon request
+00_*
+data/
+
+# 
