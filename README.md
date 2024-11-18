@@ -2,7 +2,7 @@
 
 #### Bratt. A.E., Brehme, C.S., Fisher, R.N., Bertoia, A.J., MacKenzie, D.I.
 
-##### Please contact the corresponding author for questions about the code: Abby Bratt, [abby\@proteus.co.nz](mailto:abby@proteus.co.nz){.email}
+##### Please contact the corresponding author for questions about the code: Abby Bratt, [abby\@proteus.co.nz](mailto:abby@proteus.co.nz)
 
 ------------------------------------------------------------------------
 
