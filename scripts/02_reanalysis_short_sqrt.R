@@ -1,6 +1,5 @@
 #--------------------------------------------------------------------------- ---
 # Code to run model, short timescale
-# Client: Proteus
 # Year: 2024
 #--------------------------------------------------------------------------- ---
 
@@ -25,6 +24,8 @@ repo_dir <- here()
 SP_dir <- here()
 
 ## LOAD DATA SETS ----
+
+# AEB note - data processing is slow so load pre-processed unless necessary to run below
 
 # load(here("Data", "DH_data_all.rda"))
 # load(here("Data", "CR_tab.rda"))
