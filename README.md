@@ -24,15 +24,11 @@ Contains scripts to run all analyses.
 
 ### Data
 
-Data available upon request.
+Data available upon request. See contact info within manuscript. 
 
 ### Results
 
-Raw and processed results available upon request.
-
-### [Figures](./figures)
-
-Contains all figures in manuscript.
+Raw and processed results available upon request. See contact info within manuscript. 
 
 ### Required Packages and Versions Used
 
@@ -63,4 +59,5 @@ Contains all figures in manuscript.
 -   strex v2.0.0
 
 -   xtable v1.8-4
+
 
