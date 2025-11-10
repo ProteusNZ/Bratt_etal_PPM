@@ -4,6 +4,8 @@
 
 ##### Please contact the corresponding author for questions about the code: Abby Bratt, [abby\@proteus.co.nz](mailto:abby@proteus.co.nz)
 
+[![DOI](https://zenodo.org/badge/890051854.svg)](https://doi.org/10.5281/zenodo.17567322)
+
 ------------------------------------------------------------------------
 
 ## Details of Article
@@ -59,5 +61,6 @@ Raw and processed results available upon request. See contact info within manusc
 -   strex v2.0.0
 
 -   xtable v1.8-4
+
 
 
